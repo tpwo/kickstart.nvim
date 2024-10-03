@@ -23,5 +23,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "319c01b99b7a8c9ac2066bf0efd4d6ec68fef444" },
   "tokyonight.nvim": { "branch": "main", "commit": "4b386e66a9599057587c30538d5e6192e3d1c181" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "a9b52e7d36114d40350099f254b5f299a35df978" },
   "which-key.nvim": { "branch": "main", "commit": "bfec3d6bc0a9b0b2cb11644642f78c2c3915eef0" }
 }
