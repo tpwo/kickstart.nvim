@@ -170,6 +170,9 @@ vim.o.confirm = true
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
+-- Auto-complete phrases with `-`
+vim.opt.iskeyword:append '-'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
