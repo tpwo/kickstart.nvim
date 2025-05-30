@@ -121,8 +121,14 @@ end)
 -- Enable break indent
 vim.o.breakindent = true
 
--- Convert tabs to spaces
+-- Insert spaces when pressing a tab
 vim.o.expandtab = true
+-- Set how many columns are used to render a tab
+vim.o.tabstop = 4
+-- Reuse tabstop value
+vim.o.shiftwidth = 0
+-- Reuse shiftwidth value
+vim.o.softtabstop = -1
 
 -- Save undo history
 vim.o.undofile = true
