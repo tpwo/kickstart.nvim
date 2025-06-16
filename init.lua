@@ -235,6 +235,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Use tabs instead of spaces in Makefiles and Justfiles
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'make', 'just' },
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.softtabstop = 0
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
