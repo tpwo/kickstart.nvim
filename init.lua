@@ -192,33 +192,40 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- quickfix list delete keymap
-function Remove_qf_item()
-  local curqfidx = vim.fn.line '.'
-  local qfall = vim.fn.getqflist()
+-- Quickfix/Loc list delete item
+function Remove_list_item()
+  local buftype = vim.bo.buftype
+  local is_loclist = (buftype == 'quickfix') and vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].loclist == 1
 
-  -- Return if there are no items to remove
-  if #qfall == 0 then
+  local cur_idx = vim.fn.line '.'
+  local list = is_loclist and vim.fn.getloclist(0) or vim.fn.getqflist()
+
+  if #list == 0 then
     return
   end
 
-  -- Remove the item from the quickfix list
-  table.remove(qfall, curqfidx)
-  vim.fn.setqflist(qfall, 'r')
+  table.remove(list, cur_idx)
 
-  -- Reopen quickfix window to refresh the list
-  vim.cmd 'copen'
+  if is_loclist then
+    vim.fn.setloclist(0, list, 'r')
+    vim.cmd 'lopen'
+  else
+    vim.fn.setqflist(list, 'r')
+    vim.cmd 'copen'
+  end
 
-  -- If not at the end of the list, stay at the same index, otherwise, go one up.
-  local new_idx = curqfidx < #qfall and curqfidx or math.max(curqfidx - 1, 1)
-
-  -- Set the cursor position directly in the quickfix window
-  local winid = vim.fn.win_getid() -- Get the window ID of the quickfix window
+  local new_idx = cur_idx < #list and cur_idx or math.max(cur_idx - 1, 1)
+  local winid = vim.fn.win_getid()
   vim.api.nvim_win_set_cursor(winid, { new_idx, 0 })
 end
 
-vim.cmd 'command! RemoveQFItem lua Remove_qf_item()'
-vim.api.nvim_command 'autocmd FileType qf nnoremap <buffer> dd :RemoveQFItem<cr>'
+vim.cmd 'command! RemoveListItem lua Remove_list_item()'
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function()
+    vim.keymap.set('n', 'dd', ':RemoveListItem<CR>', { buffer = true, desc = 'Delete item from quickfix/loc list' })
+  end,
+})
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
