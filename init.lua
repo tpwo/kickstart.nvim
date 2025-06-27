@@ -181,8 +181,8 @@ vim.o.smoothscroll = true
 vim.o.confirm = true
 
 -- Enable spell check
-vim.opt.spelllang = 'en_us'
-vim.opt.spell = true
+vim.o.spelllang = 'en_us'
+vim.o.spell = true
 
 -- Auto-complete phrases with `-`
 vim.opt.iskeyword:append '-'
