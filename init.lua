@@ -284,6 +284,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Keep words together when breaking lines in asciidoc and markdown
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'asciidoc', 'markdown' },
+  callback = function()
+    vim.opt_local.linebreak = true
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
