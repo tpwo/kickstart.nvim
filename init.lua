@@ -554,8 +554,14 @@ require('lazy').setup({
 
       -- TODO: I want to see commit author and date in this output
       vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
-      vim.keymap.set('n', '<leader>gh', builtin.git_bcommits, { desc = '[G]it file [H]istory' })
-      vim.keymap.set('n', '<leader>gl', builtin.git_bcommits_range, { desc = '[G]it [L]ine history' })
+
+      vim.keymap.set('n', '<leader>gh', function()
+        builtin.git_bcommits { prompt_title = 'Git File History' }
+      end, { desc = '[G]it file [H]istory' })
+
+      vim.keymap.set('n', '<leader>gl', function()
+        builtin.git_bcommits_range { prompt_title = 'Git Line History' }
+      end, { desc = '[G]it [L]ine history' })
     end,
   },
 
