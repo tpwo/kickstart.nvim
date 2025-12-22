@@ -564,14 +564,25 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
 
       -- TODO: I want to see commit author and date in this output
+      --
+      -- Stil WIP. I found something on this topic:
+      -- https://github.com/nvim-telescope/telescope.nvim/issues/2933
       vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
 
       vim.keymap.set('n', '<leader>gh', function()
-        builtin.git_bcommits { prompt_title = 'Git File History' }
+        builtin.git_bcommits {
+          prompt_title = 'Git File History',
+          -- Both are broken
+          -- git_command = { 'git', 'log', '--pretty', 'format:%h %ad | %<(15,trunc)%an | %s', '--date=short', '--abbrev-commit' },
+          -- git_command = { 'git', 'log', '--pretty=format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset', '--date=short', '--abbrev-commit' },
+        }
       end, { desc = '[G]it file [H]istory' })
 
       vim.keymap.set('n', '<leader>gl', function()
-        builtin.git_bcommits_range { prompt_title = 'Git Line History' }
+        builtin.git_bcommits_range {
+          prompt_title = 'Git Line History',
+          -- git_command = { 'git', 'log', '--pretty=format:%h %ad | %<(15,trunc)%an | %s', '--date=short', '--abbrev-commit', '--no-patch', '-L' },
+        }
       end, { desc = '[G]it [L]ine history' })
 
       -- Dotfiles picker
