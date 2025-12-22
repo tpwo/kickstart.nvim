@@ -487,11 +487,7 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        pickers = {
-          find_files = {
-            hidden = true,
-          },
-        },
+        -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -507,7 +503,27 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sF', builtin.find_files, { desc = '[S]earch *all* [F]iles' })
+
+      -- Search in files including hidden
+      vim.keymap.set('n', '<leader>sF', function()
+        builtin.find_files { hidden = true }
+      end, { desc = '[S]earch [F]iles' })
+
+      -- TODO: remove me once I learn the new `<leader>gf` pattern
+      -- I may even go back to `<leader>sf for the one above
+      vim.keymap.set('n', '<leader>sf', function()
+        vim.notify('Use <leader>gf to search git files instead!', vim.log.levels.ERROR)
+      end, { desc = '[DO NOT USE] [S]earch [F]iles' })
+
+      -- Search in files including hidden and gitignored
+      vim.keymap.set('n', '<leader>sA', function()
+        builtin.find_files {
+          hidden = true,
+          no_ignore = true,
+          no_ignore_parent = true,
+        }
+      end, { desc = '[S]earch *[A]ll* files' })
+
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -515,11 +531,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      -- TODO: remove me once I learn the new `<leader>gf` pattern
-      vim.keymap.set('n', '<leader>sf', function()
-        vim.notify('Use <leader>gf to search git files instead!', vim.log.levels.ERROR)
-      end, { desc = '[DO NOT USE] [S]earch [F]iles' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
