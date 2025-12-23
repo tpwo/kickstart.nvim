@@ -923,6 +923,7 @@ require('lazy').setup({
         opts = {},
       },
       'folke/lazydev.nvim',
+      'mgalliou/blink-cmp-tmux',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -970,9 +971,28 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = {
+          'lsp',
+          'path',
+          'snippets',
+          'lazydev',
+          'tmux',
+        },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          tmux = {
+            module = 'blink-cmp-tmux',
+            name = 'tmux',
+            -- default options
+            opts = {
+              all_panes = false,
+              capture_history = false,
+              -- only suggest completions from `tmux` if the `trigger_chars` are
+              -- used
+              triggered_only = false,
+              trigger_chars = { '.' },
+            },
+          },
         },
       },
 
