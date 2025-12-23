@@ -573,6 +573,22 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>gl', function()
         builtin.git_bcommits_range { prompt_title = 'Git Line History' }
       end, { desc = '[G]it [L]ine history' })
+
+      -- Dotfiles picker
+      vim.keymap.set('n', '<leader>sD', function()
+        require('telescope.builtin').find_files {
+          prompt_title = 'Dotfiles',
+          cwd = vim.fn.expand '~',
+          find_command = {
+            'git',
+            '--git-dir=' .. vim.fn.expand '~/.dotfiles',
+            '--work-tree=' .. vim.fn.expand '~',
+            'ls-files',
+            '--exclude-standard',
+            '--cached',
+          },
+        }
+      end, { desc = '[S]earch [D]otfiles' })
     end,
   },
 
