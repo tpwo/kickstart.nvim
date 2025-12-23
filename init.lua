@@ -110,14 +110,6 @@ vim.o.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
-
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -260,6 +252,42 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- [[ Prime-inspired keymaps ]]
+-- Move lines in visual block with J and K
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- When joining lines in normal mode with J make cursor stay where it is
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- Cursor stays always in the middle when jumping with C-d and C-u
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Make search results always stay in the middle
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- When pasting with <leader>p, the pasted word stays in the register
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste w/o overwriting register' })
+
+-- NOTE: I disabled clipboard sync in favor of these keymaps:
+-- - copy into the clipboard with <leader>y/Y
+-- - paste from the clipboard with <Cmd+v> (MacOs) / <Ctrl+v>
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = '[Y]ank into clipboard' })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank into clipboard' })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = '[D]elete into void register' })
+
+vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace-All for word under cursor' })
+
+-- TODO: I need to figure out quicklist vs loclist, as it doesn't work for my workflow right now
+-- Navigate quickfix
+-- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
+-- vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+-- vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
+-- vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
