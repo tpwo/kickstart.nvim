@@ -140,6 +140,9 @@ vim.o.backup = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Enable 24-bit RGB colors
+vim.o.termguicolors = true
+
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
