@@ -357,6 +357,10 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'mbbill/undotree',
+    vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = '[U]ndotree' }),
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
