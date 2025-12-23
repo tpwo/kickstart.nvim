@@ -130,8 +130,11 @@ vim.o.shiftwidth = 0
 -- Reuse shiftwidth value
 vim.o.softtabstop = -1
 
--- Save undo history
+-- Save undo history and disable swapfiles and backups
+-- Undos are by default saved in `~/.local/state/nvim/undo`
 vim.o.undofile = true
+vim.o.swapfile = false
+vim.o.backup = false
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
