@@ -261,9 +261,11 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 -- When joining lines in normal mode with J make cursor stay where it is
 vim.keymap.set('n', 'J', 'mzJ`z')
 
--- Cursor stays always in the middle when jumping with C-d and C-u
+-- Cursor stays always in the middle when jumping
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-i>', '<C-i>zz')
+vim.keymap.set('n', '<C-o>', '<C-o>zz')
 
 -- Make search results always stay in the middle
 vim.keymap.set('n', 'n', 'nzzzv')
