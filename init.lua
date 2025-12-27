@@ -958,6 +958,8 @@ require('lazy').setup({
         -- `ruff_format` taken from the docs:
         -- https://docs.astral.sh/ruff/editors/setup/#neovim
         python = { 'isort', 'ruff_format' },
+        javascript = { 'biome' },
+        typescript = { 'biome' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
