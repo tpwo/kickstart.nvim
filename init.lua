@@ -320,6 +320,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Use 2 spaces for indenting JS and TS files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'typescript' },
+  callback = function()
+    vim.opt_local.tabstop = 2
+  end,
+})
+
 -- Keep words together when breaking lines in asciidoc and markdown
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'asciidoc', 'markdown' },
