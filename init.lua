@@ -1042,6 +1042,17 @@ require('lazy').setup({
       },
 
       completion = {
+        -- Don't preselect the first item on the list. I changed it, as it was very annoying,
+        -- as often the first item is my choice. But then to insert it I had to to <C-n>, <C-p>,
+        -- as it was preselected but not preinserted (even when `auto_insert` is true)!
+        --
+        -- This issue is visible when completion menu appears on its own, e.g. when pressing
+        -- a dot which enables LSP auto-completion. Maybe preselection makes sense in other cases,
+        -- but I don't feel it will bring a lot of value, so I'm leaving it for now.
+        --
+        -- Docs: https://cmp.saghen.dev/configuration/completion#list
+        list = { selection = { preselect = false, auto_insert = true } },
+
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
