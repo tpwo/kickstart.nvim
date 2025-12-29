@@ -165,8 +165,22 @@ vim.o.inccommand = 'split'
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+-- Set huge scrolloff to keep cursor in the middle
+vim.o.scrolloff = 999
+
+-- Also set it explicitly for `k` and `j`, so it also works at the end of the file
+vim.keymap.set('n', 'k', 'kzz')
+vim.keymap.set('n', 'j', 'jzz')
+
+-- Cursor stays always in the middle when jumping
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-i>', '<C-i>zz')
+vim.keymap.set('n', '<C-o>', '<C-o>zz')
+
+-- Make search results always stay in the middle
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 
 -- Enable smoothscrool
 -- Now <C-E> and <C-Y> scroll by a single *screen line* (like <gj> and <gk>)
@@ -260,16 +274,6 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- When joining lines in normal mode with J make cursor stay where it is
 vim.keymap.set('n', 'J', 'mzJ`z')
-
--- Cursor stays always in the middle when jumping
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('n', '<C-i>', '<C-i>zz')
-vim.keymap.set('n', '<C-o>', '<C-o>zz')
-
--- Make search results always stay in the middle
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
 
 -- When pasting with <leader>p, the pasted word stays in the register
 vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste w/o overwriting register' })
