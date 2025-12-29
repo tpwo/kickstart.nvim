@@ -580,7 +580,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 
       vim.keymap.set('n', '<leader>sg', function()
-        require('telescope.builtin').live_grep {
+        builtin.live_grep {
           additional_args = function()
             -- Pass rgrip options here
             return { '--hidden' }
@@ -642,7 +642,7 @@ require('lazy').setup({
 
       -- Dotfiles picker
       vim.keymap.set('n', '<leader>sD', function()
-        require('telescope.builtin').find_files {
+        builtin.find_files {
           prompt_title = 'Dotfiles',
           cwd = vim.fn.expand '~',
           find_command = {
