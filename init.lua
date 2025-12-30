@@ -168,11 +168,6 @@ vim.o.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 5
 
--- Keep cursor in the center when moving with `k` and `j`.
--- To move screen without moving the cursor use `<C-y>` and `<C-e>`.
-vim.keymap.set('n', 'k', 'kzz')
-vim.keymap.set('n', 'j', 'jzz')
-
 -- Make cursor stay always in the middle during...
 --
 -- search
