@@ -168,12 +168,9 @@ vim.o.cursorline = true
 -- Set huge scrolloff to keep cursor in the middle
 vim.o.scrolloff = 999
 
--- Also set it explicitly for `k`, `j`, `<C-e>`, `<C-y>`, so it also works at the end of the file
+-- Also set it explicitly for `k` and `j`, so it also works at the end of the file
 vim.keymap.set('n', 'k', 'kzz')
 vim.keymap.set('n', 'j', 'jzz')
--- Remap them to k and j to achieve similar behavior
-vim.keymap.set('n', '<C-y>', 'kzz')
-vim.keymap.set('n', '<C-e>', 'jzz')
 
 -- Cursor stays always in the middle when jumping
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
