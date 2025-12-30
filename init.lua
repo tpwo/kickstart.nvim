@@ -165,22 +165,27 @@ vim.o.inccommand = 'split'
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
--- Set huge scrolloff to keep cursor in the middle
-vim.o.scrolloff = 999
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.o.scrolloff = 5
 
--- Also set it explicitly for `k` and `j`, so it also works at the end of the file
+-- Keep cursor in the center when moving with `k` and `j`.
+-- To move screen without moving the cursor use `<C-y>` and `<C-e>`.
 vim.keymap.set('n', 'k', 'kzz')
 vim.keymap.set('n', 'j', 'jzz')
 
--- Cursor stays always in the middle when jumping
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
+-- Make cursor stay always in the middle during...
+--
+-- search
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
+-- jumping between history
 vim.keymap.set('n', '<C-i>', '<C-i>zz')
 vim.keymap.set('n', '<C-o>', '<C-o>zz')
-
--- Make search results always stay in the middle
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
+-- jumping forward/backward through the file
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-f>', '<C-f>zz')
+vim.keymap.set('n', '<C-b>', '<C-b>zz')
 
 -- Enable smoothscrool
 -- Now <C-E> and <C-Y> scroll by a single *screen line* (like <gj> and <gk>)
