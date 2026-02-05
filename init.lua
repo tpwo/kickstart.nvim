@@ -670,12 +670,22 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>gb', require_git_repo(builtin.git_branches), { desc = '[G]it [B]ranches' })
 
-      -- TODO: I want to see commit author and date in this output
       vim.keymap.set(
         'n',
         '<leader>gc',
         require_git_repo(function()
-          builtin.git_commits { git_command = { 'git', 'log', '--pretty=format:%h %<(15,trunc)%an %<(15,trunc)%ar %s' } }
+          builtin.git_commits {
+            git_command = { 'git', 'log', '--pretty=format:%h %<(15,trunc)%an %<(15,trunc)%ar %s' },
+            entry_maker = function(entry)
+              local hash = entry:match '^(%w+)'
+
+              return {
+                value = hash,
+                display = entry,
+                ordinal = vim.fn.system('git log -1 ' .. hash .. ' --pretty=format:%h %s %an %ar'):gsub('\n', ' '),
+              }
+            end,
+          }
         end),
         { desc = '[G]it [C]ommits' }
       )
