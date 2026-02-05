@@ -651,7 +651,6 @@ require('lazy').setup({
         'n',
         '<leader>gf',
         require_git_repo(function()
-          local current_dir = vim.fn.expand '%:p:h'
           builtin.find_files {
             prompt_title = 'Git Files',
             find_command = {
@@ -659,7 +658,7 @@ require('lazy').setup({
               'ls-files',
               '--exclude-standard',
               '--cached',
-              current_dir,
+              vim.fn.getcwd(),
             },
           }
         end),
