@@ -632,20 +632,64 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>tf', builtin.filetypes, { desc = '[T]oggle [F]iletype' })
 
       -- Git pickers
-      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
-      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
-      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
+
+      -- Helper function checking if we're in a Git repo. Without it, telescope Git pickers fail with a loud error
+      local function require_git_repo(fn)
+        return function()
+          local git_root = vim.fn.system('git rev-parse --show-toplevel 2>/dev/null'):gsub('\n', '')
+          if git_root == '' then
+            vim.notify('Not in a git repository', vim.log.levels.ERROR)
+            return
+          end
+          fn()
+        end
+      end
+
+      vim.keymap.set('n', '<leader>gs', require_git_repo(builtin.git_status), { desc = '[G]it [S]tatus' })
+
+      vim.keymap.set(
+        'n',
+        '<leader>gf',
+        require_git_repo(function()
+          local current_dir = vim.fn.expand '%:p:h'
+          builtin.find_files {
+            prompt_title = 'Git Files',
+            find_command = {
+              'git',
+              'ls-files',
+              '--exclude-standard',
+              '--cached',
+              current_dir,
+            },
+          }
+        end),
+        { desc = '[G]it [F]iles' }
+      )
+
+      vim.keymap.set('n', '<leader>gF', require_git_repo(builtin.git_files), { desc = '[G]it [F]iles (All)' })
+
+      vim.keymap.set('n', '<leader>gb', require_git_repo(builtin.git_branches), { desc = '[G]it [B]ranches' })
 
       -- TODO: I want to see commit author and date in this output
-      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
+      vim.keymap.set('n', '<leader>gc', require_git_repo(builtin.git_commits), { desc = '[G]it [C]ommits' })
 
-      vim.keymap.set('n', '<leader>gh', function()
-        builtin.git_bcommits { prompt_title = 'Git File History' }
-      end, { desc = '[G]it file [H]istory' })
+      vim.keymap.set(
+        'n',
+        '<leader>gh',
+        require_git_repo(function()
+          builtin.git_bcommits { prompt_title = 'Git File History' }
+        end),
+        { desc = '[G]it file [H]istory' }
+      )
 
-      vim.keymap.set('n', '<leader>gl', function()
-        builtin.git_bcommits_range { prompt_title = 'Git Line History' }
-      end, { desc = '[G]it [L]ine history' })
+      vim.keymap.set(
+        'n',
+        '<leader>gl',
+        require_git_repo(function()
+          builtin.git_bcommits_range { prompt_title = 'Git Line History' }
+        end),
+        { desc = '[G]it [L]ine history' }
+      )
 
       -- Dotfiles picker
       vim.keymap.set('n', '<leader>sD', function()
