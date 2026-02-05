@@ -315,6 +315,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Set file type of files like `.bash_work` to sh
+-- (`.bashrc` type is set to it by default)
+vim.filetype.add { pattern = {
+  ['.bash.*'] = 'sh',
+} }
+
 -- Use tabs instead of spaces in Makefiles and Justfiles
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'make', 'just' },
