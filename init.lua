@@ -563,16 +563,19 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 
-      -- Search in files including hidden
-      vim.keymap.set('n', '<leader>sF', function()
-        builtin.find_files { hidden = true }
+      -- Search in files
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files { hidden = false }
       end, { desc = '[S]earch [F]iles' })
 
-      -- TODO: remove me once I learn the new `<leader>gf` pattern
-      -- I may even go back to `<leader>sf for the one above
-      vim.keymap.set('n', '<leader>sf', function()
-        vim.notify('Use <leader>gf to search git files instead!', vim.log.levels.ERROR)
-      end, { desc = '[DO NOT USE] [S]earch [F]iles' })
+      -- Search in files including hidden and gitignored
+      vim.keymap.set('n', '<leader>sF', function()
+        builtin.find_files {
+          hidden = true,
+          no_ignore = true,
+          no_ignore_parent = true,
+        }
+      end, { desc = '[S]earch [F]iles (Hidden)' })
 
       -- Search in files including hidden and gitignored
       vim.keymap.set('n', '<leader>sA', function()
