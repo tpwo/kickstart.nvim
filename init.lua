@@ -1135,7 +1135,7 @@ require('lazy').setup({
             name = 'tmux',
             -- default options
             opts = {
-              all_panes = false,
+              panes = 'session',
               capture_history = false,
               -- only suggest completions from `tmux` if the `trigger_chars` are
               -- used
