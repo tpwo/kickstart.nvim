@@ -278,10 +278,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- I've took it from this video where he explains them:
 -- https://youtu.be/w7i4amO_zaE
 
--- Move lines in visual block with J and K
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-
 -- When joining lines in normal mode with J make cursor stay where it is
 vim.keymap.set('n', 'J', 'mzJ`z')
 
