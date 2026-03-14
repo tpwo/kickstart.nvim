@@ -268,6 +268,9 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- [[ Prime-inspired keymaps ]]
+-- I've took it from this video where he explains them:
+-- https://youtu.be/w7i4amO_zaE
+
 -- Move lines in visual block with J and K
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
