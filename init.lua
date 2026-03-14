@@ -168,6 +168,13 @@ vim.o.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 5
 
+-- Sourcing the current file (init.lua most likely)
+vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
+
+-- Quickly save and quit
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+
 -- Make cursor stay always in the middle during...
 --
 -- search
@@ -207,7 +214,7 @@ vim.opt.iskeyword:append '-'
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Quickfix/Loc list delete item
 function Remove_list_item()
