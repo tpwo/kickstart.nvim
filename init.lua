@@ -947,7 +947,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- `ruff_format` taken from the docs:
         -- https://docs.astral.sh/ruff/editors/setup/#neovim
-        python = { 'isort', 'ruff_format' },
+        python = { 'ruff_format' },
         golang = { 'gofmt' },
         javascript = { 'biome' },
         typescript = { 'biome' },
