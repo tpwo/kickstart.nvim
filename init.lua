@@ -1161,26 +1161,6 @@ require('lazy').setup({
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
-      local parsers = {
-        'bash',
-        'c',
-        'diff',
-        'git_rebase',
-        'gitcommit',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'python',
-        'query',
-        'terraform',
-        'toml',
-        'vim',
-        'vimdoc',
-        'yaml',
-      }
-      require('nvim-treesitter').install(parsers)
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
           local buf, filetype = args.buf, args.match
@@ -1202,6 +1182,15 @@ require('lazy').setup({
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
       })
+    end,
+  },
+  {
+    'lewis6991/ts-install.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('ts-install').setup {
+        auto_install = true,
+      }
     end,
   },
 
