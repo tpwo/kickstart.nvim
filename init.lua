@@ -1100,10 +1100,15 @@ require('lazy').setup({
         },
       }
 
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- Load the colorscheme without a suffix so tokyonight picks the variant
+      -- based on vim.o.background ('light' -> day, 'dark' -> night).
+      -- In Neovim 0.12, OSCColorQuery (system background detection) is async,
+      -- so we re-apply the colorscheme once background is resolved.
+      vim.cmd.colorscheme 'tokyonight'
+      vim.api.nvim_create_autocmd('OptionSet', {
+        pattern = 'background',
+        callback = function() vim.cmd.colorscheme 'tokyonight' end,
+      })
     end,
   },
 
