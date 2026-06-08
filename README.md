@@ -1,5 +1,9 @@
 # kickstart.nvim
 
+> [!WARNING]
+> This fork is now archived, as I stopped using kickstart in favor of a new independent repo from scratch:
+> https://github.com/tpwo/nvim-config
+
 ## Introduction
 
 A starting point for Neovim that is:
